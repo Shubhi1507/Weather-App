@@ -1,15 +1,13 @@
 import React from 'react';
 import {View, Text, PermissionsAndroid, TouchableOpacity} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
-
+import {CONSTANTS} from '../Components/Utils';
 
 export default function WeatherScreen() {
   async function GetMyLocation() {
     try {
       Geolocation.getCurrentPosition(
         position => {
-          console.log(position.coords);
-
           CallWeatherAPI(position.coords.latitude, position.coords.longitude);
         },
         error => {
@@ -19,14 +17,29 @@ export default function WeatherScreen() {
         {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
       );
     } catch (err) {
-      console.warn(err);
+      console.log(err);
     }
   }
 
-  async function CallWeatherAPI() {
-      
+  async function CallWeatherAPI(latitude, longitude) {
+    console.log(latitude, longitude);
+
+    let TempURL =
+      CONSTANTS.API_URL +
+      'lat=' +
+      latitude +
+      '&lon=' +
+      longitude +
+      '&appid=' +
+      CONSTANTS.API_KEY;
+    console.log(TempURL);
     try {
-    } catch (error) {}
+      const data = await fetch(TempURL);
+
+      console.log(await data.json());
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
