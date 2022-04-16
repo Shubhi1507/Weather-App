@@ -1,0 +1,3 @@
+Whenever Redux is created . we always create Root Reducer , Store the action types. 
+For extractionb from redux store , we use use selector .
+

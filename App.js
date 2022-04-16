@@ -25,19 +25,20 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import {Provider} from 'react-redux';
+import store from './src/Redux/Store/Store';
 import WeatherScreen from './src/Screens/WeatherScreen';
 
 const App = () => {
-
   return (
-
-    <View style={{flex: 1, backgroundColor: 'teal' }}>
-      <WeatherScreen/>
-      <StatusBar barStyle={'dark-content'} />
-    </View>
-    
+    <Provider store={store}>
+      <View style={{flex: 1, backgroundColor: 'teal'}}>
+        <WeatherScreen />
+        <StatusBar barStyle={'dark-content'} />
+      </View>
+    </Provider>
   );
-}
+};
 
 const styles = StyleSheet.create({
   sectionContainer: {

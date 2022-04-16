@@ -1,9 +1,12 @@
 import React from 'react';
 import {View, Text, PermissionsAndroid, TouchableOpacity} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
+import {useDispatch} from 'react-redux';
 import {CONSTANTS} from '../Components/Utils';
+import {ACTION_TYPES} from '../Redux/Actions/ActionTypes';
 
 export default function WeatherScreen() {
+  let dispatch = useDispatch();
   async function GetMyLocation() {
     try {
       Geolocation.getCurrentPosition(
@@ -35,8 +38,9 @@ export default function WeatherScreen() {
     console.log(TempURL);
     try {
       const data = await fetch(TempURL);
-
-      console.log(await data.json());
+      let jsonResponse = await data.json();
+      dispatch({type: ACTION_TYPES.UPDATE_WEATHER, payload: jsonResponse});
+      console.log(jsonResponse);
     } catch (error) {
       console.log(error);
     }
