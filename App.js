@@ -28,14 +28,21 @@ import {
 import {Provider} from 'react-redux';
 import store from './src/Redux/Store/Store';
 import WeatherScreen from './src/Screens/WeatherScreen';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import WeatherDetail from './src/Screens/WeatherDetail';
+
+const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
     <Provider store={store}>
-      <View style={{flex: 1, backgroundColor: 'teal'}}>
-        <WeatherScreen />
-        <StatusBar barStyle={'dark-content'} />
-      </View>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="WeatherScreen" component={WeatherScreen} />
+          <Stack.Screen name="WeatherDetail" component={WeatherDetail} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </Provider>
   );
 };
